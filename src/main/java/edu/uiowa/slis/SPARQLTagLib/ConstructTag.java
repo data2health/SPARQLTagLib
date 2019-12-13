@@ -39,6 +39,8 @@ public class ConstructTag extends BodyTagSupport {
 
     private int scope = PageContext.REQUEST_SCOPE;
     private String var = null;
+    
+    QueryExecution theClassExecution = null;
 
     public ConstructTag() {
 	super();
@@ -115,6 +117,21 @@ public class ConstructTag extends BodyTagSupport {
     public void doFinally() {
     }
 
+    void clearServiceState() {
+	endpoint = null;
+	triplestore = null;
+	graph = null;
+	sparql = null;
+	sparqlStatement = null;
+	prefixVector = new Vector<Prefix>();
+	parameterVector = new Vector<Parameter>();
+	
+	theClassExecution.close();
+
+	scope = PageContext.PAGE_SCOPE;
+	var = null;
+    }
+
     public void addPrefix(Prefix prefix) {
 	prefixVector.add(prefix);
     }
@@ -148,7 +165,7 @@ public class ConstructTag extends BodyTagSupport {
 	    theQuery = parameterizedString.asQuery();
 	}
 
-	QueryExecution theClassExecution = QueryExecutionFactory.sparqlService(endpoint, theQuery);
+	theClassExecution = QueryExecutionFactory.sparqlService(endpoint, theQuery);
 	return theClassExecution.execConstruct();
     }
 

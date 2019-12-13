@@ -16,7 +16,10 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFactory;
 import org.apache.jena.query.Syntax;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.sparql.resultset.RDFOutput;
 
 import edu.uiowa.slis.SPARQLTagLib.util.Graph;
 import edu.uiowa.slis.SPARQLTagLib.util.Endpoint;
@@ -170,8 +173,11 @@ public class QueryTag extends BodyTagSupport {
 	    theQuery = parameterizedString.asQuery();
 	}
 
+	// this little dance is necessary to decouple the results from the triplestore resources
 	QueryExecution theClassExecution = QueryExecutionFactory.sparqlService(endpoint, theQuery);
-	return theClassExecution.execSelect();
+	Model temp = RDFOutput.encodeAsModel(theClassExecution.execSelect());
+	theClassExecution.close();
+	return ResultSetFactory.makeResults(temp);
     }
 
     public void setScope(String scope) {
