@@ -11,11 +11,11 @@ import javax.servlet.jsp.jstl.sql.Result;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ResultImplementation implements Result {
-    static Logger logger = Logger.getLogger(ResultImplementation.class);
+	static Logger logger = LogManager.getLogger(ResultImplementation.class);
     ResultSet rs = null;
     boolean rawMode = false;
 

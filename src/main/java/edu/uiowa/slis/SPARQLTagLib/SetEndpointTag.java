@@ -4,14 +4,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.taglibs.standard.tag.common.core.Util;
 
 import edu.uiowa.slis.SPARQLTagLib.util.Endpoint;
 
 @SuppressWarnings("serial")
 public class SetEndpointTag extends TagSupport {
-    static Logger logger = Logger.getLogger(SetEndpointTag.class);
+	static Logger logger = LogManager.getLogger(SetEndpointTag.class);
 
     String sparqlURL = null;
     String user = null;

@@ -4,14 +4,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import edu.uiowa.slis.SPARQLTagLib.util.Endpoint;
 import edu.uiowa.slis.SPARQLTagLib.util.Parameter;
 
 @SuppressWarnings("serial")
 public class ParameterTag extends TagSupport {
-    static Logger logger = Logger.getLogger(ParameterTag.class);
+	static Logger logger = LogManager.getLogger(ParameterTag.class);
 
     String var = null;
     String value = null;

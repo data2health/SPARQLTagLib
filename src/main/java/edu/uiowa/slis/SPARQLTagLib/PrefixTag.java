@@ -4,14 +4,15 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import edu.uiowa.slis.SPARQLTagLib.util.Endpoint;
 import edu.uiowa.slis.SPARQLTagLib.util.Prefix;
 
 @SuppressWarnings("serial")
 public class PrefixTag extends TagSupport {
-    static Logger logger = Logger.getLogger(PrefixTag.class);
+	static Logger logger = LogManager.getLogger(PrefixTag.class);
 
     String prefix = null;
     String baseURI = null;

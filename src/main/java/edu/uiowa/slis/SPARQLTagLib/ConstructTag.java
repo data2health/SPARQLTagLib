@@ -7,13 +7,13 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.taglibs.standard.tag.common.core.Util;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.Syntax;
 import org.apache.jena.rdf.model.Model;
@@ -27,7 +27,7 @@ import edu.uiowa.slis.SPARQLTagLib.util.Triplestore;
 
 @SuppressWarnings("serial")
 public class ConstructTag extends BodyTagSupport {
-    static Logger logger = Logger.getLogger(ConstructTag.class);
+	static Logger logger = LogManager.getLogger(ConstructTag.class);
 
     Endpoint endpoint = null;
     Triplestore triplestore = null;
@@ -165,7 +165,7 @@ public class ConstructTag extends BodyTagSupport {
 	    theQuery = parameterizedString.asQuery();
 	}
 
-	theClassExecution = QueryExecutionFactory.sparqlService(endpoint, theQuery);
+	theClassExecution = QueryExecution.service(endpoint).query(theQuery).build();
 	return theClassExecution.execConstruct();
     }
 

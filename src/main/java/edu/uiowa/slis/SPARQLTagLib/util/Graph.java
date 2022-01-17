@@ -11,10 +11,11 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.Syntax;
 import org.apache.jena.rdf.model.Model;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Graph {
-    static Logger logger = Logger.getLogger(Graph.class);
+	static Logger logger = LogManager.getLogger(Graph.class);
     Model model = null;
     Vector<Prefix> prefixVector = new Vector<Prefix>();
     Vector<Parameter> parameterVector = new Vector<Parameter>();

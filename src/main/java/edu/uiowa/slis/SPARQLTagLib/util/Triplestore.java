@@ -7,10 +7,11 @@ import java.util.Vector;
 import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Triplestore {
-    static Logger logger = Logger.getLogger(Triplestore.class);
+	static Logger logger = LogManager.getLogger(Triplestore.class);
     String container = null;
     Vector<Prefix> prefixVector = new Vector<Prefix>();
 

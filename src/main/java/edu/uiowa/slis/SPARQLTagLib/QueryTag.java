@@ -7,13 +7,13 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.taglibs.standard.tag.common.core.Util;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFactory;
@@ -33,7 +33,7 @@ import edu.uiowa.slis.SPARQLTagLib.util.Triplestore;
 
 @SuppressWarnings("serial")
 public class QueryTag extends BodyTagSupport {
-    static Logger logger = Logger.getLogger(QueryTag.class);
+	static Logger logger = LogManager.getLogger(QueryTag.class);
 
     String resultType = "literal";
     Endpoint endpoint = null;
@@ -174,7 +174,7 @@ public class QueryTag extends BodyTagSupport {
 	}
 
 	// this little dance is necessary to decouple the results from the triplestore resources
-	QueryExecution theClassExecution = QueryExecutionFactory.sparqlService(endpoint, theQuery);
+	QueryExecution theClassExecution = QueryExecution.service(endpoint).query(theQuery).build();
 	Model temp = RDFOutput.encodeAsModel(theClassExecution.execSelect());
 	theClassExecution.close();
 	return ResultSetFactory.makeResults(temp);
