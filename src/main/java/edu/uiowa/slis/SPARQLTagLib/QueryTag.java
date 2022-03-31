@@ -174,7 +174,8 @@ public class QueryTag extends BodyTagSupport {
 	}
 
 	// this little dance is necessary to decouple the results from the triplestore resources
-	QueryExecution theClassExecution = QueryExecution.service(endpoint).query(theQuery).build();
+	// the urlGetLimit call forces a POST rather than a GET for all queries
+	QueryExecution theClassExecution = QueryExecution.service(endpoint).query(theQuery).urlGetLimit(0).build();
 	Model temp = RDFOutput.encodeAsModel(theClassExecution.execSelect());
 	theClassExecution.close();
 	return ResultSetFactory.makeResults(temp);

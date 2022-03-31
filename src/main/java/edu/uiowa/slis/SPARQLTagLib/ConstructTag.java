@@ -165,7 +165,8 @@ public class ConstructTag extends BodyTagSupport {
 	    theQuery = parameterizedString.asQuery();
 	}
 
-	theClassExecution = QueryExecution.service(endpoint).query(theQuery).build();
+	// the urlGetLimit call forces a POST rather than a GET for all queries
+	theClassExecution = QueryExecution.service(endpoint).query(theQuery).urlGetLimit(0).build();
 	return theClassExecution.execConstruct();
     }
 
